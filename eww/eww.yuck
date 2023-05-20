@@ -1,0 +1,208 @@
+(defpoll active-workspace
+  :interval "0.1s"
+  "export focused=$(hyprctl activeworkspace | grep ID | cut -d' ' -f3); echo -n $focused; unset -v focused"
+)
+
+(defpoll time
+  :interval "60s"
+  "date +%H:%M"
+)
+
+(defpoll vol
+  :interval "0.5s"
+  "pulsemixer --get-volume | awk '{ print $1 }'"
+)
+
+(defpoll vol-muted
+  :interval "0.5s"
+  "pulsemixer --get-mute"
+)
+
+(defpoll mic
+  :interval "0.5s"
+  "pulsemixer --get-volume --id $(pulsemixer --list-sources | grep Default | cut -d':' -f3 | cut -d',' -f1 | cut -d' ' -f2) | awk '{ print $1 }'"
+)
+
+(defpoll mic-muted
+  :interval "0.5s"
+  "pulsemixer --get-mute --id $(pulsemixer --list-sources | grep Default | cut -d':' -f3 | cut -d',' -f1 | cut -d' ' -f2)"
+)
+
+(defpoll cal-day
+  :interval "1h"
+  "date +%d"
+)
+
+(defpoll cal-month
+  :interval "10h"
+  "date +%B"
+)
+
+(defpoll cal-year
+  :interval "10h"
+  "date +%Y"
+)
+
+(defwidget workspaces [n]
+  (box
+    :class "container"
+    :space-evenly true
+    :halign "start"
+    :spacing 0
+    (button :class "w${n}${active-workspace == '1' ? '1' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 1" " ")
+    (button :class "w${n}${active-workspace == '2' ? '2' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 2" " ")
+    (button :class "w${n}${active-workspace == '3' ? '3' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 3" " ")
+    (button :class "w${n}${active-workspace == '4' ? '4' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 4" "󰈹 ")
+    (button :class "w${n}${active-workspace == '5' ? '5' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 5" " ")
+    (button :class "w${n}${active-workspace == '6' ? '6' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 6" "󰙯 ")
+    (button :class "w${n}${active-workspace == '7' ? '7' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 7" " ")
+    (button :class "w${n}${active-workspace == '8' ? '8' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 8" " ")
+  )
+)
+
+(defwidget clock [mon]
+  (eventbox
+    :class "clock"
+    :onhover "eww open cal-window-${mon}"
+    :onhoverlost "eww close cal-window-${mon}"
+    (button
+      :class "util-button"
+      time
+    )
+  )
+)
+
+(defwidget util-bar [mon]
+  (box
+    :class "container"
+    :halign "end"
+    :spacing 4
+    (eventbox
+      :onscroll "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%$(if [[ {} = 'down' ]]; then echo - -; else echo '+'; fi)"
+      (button
+        :class "util-button"
+        :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        :onmiddleclick "bash ~/.config/eww/scripts/pulsemixer.sh"
+        {vol-muted == 1 ? '󰖁 MUTE' : ' ${vol}%'}
+      )
+    )
+    (eventbox
+      :onscroll "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%$(if [[ {} = 'down' ]]; then echo - -; else echo '+'; fi)"
+      (button
+        :class "util-button"
+        :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        :onmiddleclick "bash ~/.config/eww/scripts/pulsemixer.sh"
+        {mic-muted == 1 ? ' MUTE' : ' ${mic}%'}
+      )
+    )
+    (clock
+      :mon mon
+    )
+  )
+)
+
+(defwidget cal []
+  (box
+    :class "cal-box"
+    (calendar
+      :day cal-day
+      :month cal-month
+      :year cal-year
+      :show-week-numbers true
+      :active false
+    )
+  )
+)
+
+(defwindow cal-window-left
+  :monitor 0
+  :geometry (geometry
+    :x "85%"
+    :y "76%"
+    :width "15%"
+    :height "19%"
+  )
+  :stacking "overlay"
+  :focusable false
+  (cal)
+)
+
+(defwindow bar-left
+  :monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "100%"
+    :height "5%"
+    :anchor "bottom center"
+  )
+  :stacking "fg"
+  :exclusive true
+  :focusable false
+  (centerbox
+    (workspaces
+      :n 0
+    )
+    (box)
+    (util-bar
+      :mon "left"
+    )
+  )
+)
+
+(defwindow cal-window-right
+  :monitor 1
+  :geometry (geometry
+    :x "85%"
+    :y "76%"
+    :width "15%"
+    :height "10%"
+  )
+  :stacking "overlay"
+  :focusable false
+  (cal)
+)
+
+(defwindow bar-right
+  :monitor 1
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "100%"
+    :height "5%"
+    :anchor "bottom center"
+  )
+  :stacking "fg"
+  :exclusive true
+  :focusable false
+  (centerbox
+    (workspaces
+      :n 1
+    )
+    (box)
+    (util-bar
+      :mon "right"
+    )
+  )
+)
+
+(defwindow emulation-station
+  :monitor 0
+  :geometry (geometry
+    :x "1468px"
+    :y "268px"
+    :width "121px"
+    :height "88px"
+  )
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  (box
+    :class "frame-container"
+    (button
+      :class "frame"
+      :onclick "emulationstation &"
+      "EMU"
+    )
+  )
+)
