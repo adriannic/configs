@@ -1,32 +1,78 @@
 * {
-  border: none;
-  border-radius: 0;
+  all: unset;
   font-family: "FiraCode Nerd Font";
   font-weight: bold;
-  min-height: 0;
 }
 
 window#waybar {
-  background: rgba(21, 18, 27, 0);
-  color: #cdd6f4;
+  background: none;
 }
 
+#tray menu,
 tooltip {
-  background: #1e1e2e;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #11111b;
+  font-size: 14px;
+  background: #16003b;
+  border: inset 4px #400070;
+  color: #c080f0;
+  border-radius: 15px 0;
+  padding: 10px;
+}
+
+#tray menu > separator {
+  background-color: #400070;
+  margin: 4px 0;
+  padding: 1px 5px;
+}
+
+#tray menu > menuitem {
+  background-color: #16003b;
+  color: #c080f0;
+  border: inset 4px #400070;
+  border-radius: 15px 0;
+  padding: 4px;
+  margin: 2px 0;
+  transition: background-color 0.25s;
+  transition: border-radius 0.25s;
+  transition: color 0.25s;
+}
+
+#tray menu > menuitem:hover {
+  background-color: #c080f0;
+  color: #16003b;
+  border-radius: 0;
+  transition: background-color 0.25s;
+  transition: border-radius 0.25s;
+  transition: color 0.25s;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: #16003b;
+    background-color: #c080f0;
 }
 
 #workspaces button {
-  padding-left: 7px;
-  padding-right: 10px;
-  color: #313244;
-  margin-right: 8px;
+  margin: 0px 4px;
+  padding: 5px;
+  padding-left: 14px;
+  padding-right: 18px;
+  color: #c080f0;
+  background-color: #16003b;
+  font-size: 16px;
+  border: inset 4px #400070;
+  border-radius: 25px 0;
+  transition: background-color 0.25s;
+  transition: border-radius 0.25s;
+  transition: color 0.25s;
 }
 
 #workspaces button.active {
-  color: #a6adc8;
+  color: #fff;
+  transition: color 0.25s;
 }
 
 #workspaces button.focused {
@@ -43,19 +89,22 @@ tooltip {
 
 @keyframes urgent {
   0% {
-    color: #313244;
+    color: #c080f0;
   }
   50% {
     color: #f6e3a1;
   }
   100% {
-    color: #313244;
+    color: #c080f0;
   }
 }
 
 #workspaces button:hover {
-  background: rgba(49, 50, 68, 0);
-  color: #dde6f4;
+  color: #400070;
+  background-color: #c080f0;
+  border-radius: 0px;
+  transition: background-color 0.25s;
+  transition: border-radius 0.25s;
 }
 
 #window,
@@ -64,36 +113,31 @@ tooltip {
 #network,
 #bluetooth,
 #workspaces,
+#mpris,
 #tray {
-  background: #1e1e2e;
-  opacity: 1;
-  padding: 2px 12px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 15px;
-  border: 1px solid #181825;
+  margin: 0px 4px 4px 0px;
 }
 
 #workspaces {
-  padding-right: 0px;
-  padding-left: 5px;
   margin-left: 5px;
-  font-size: 23px;
 }
 
-#window {
-  margin-left: 60px;
-  margin-right: 60px;
-}
-
+#tray,
+#pulseaudio,
+#pulseaudio.microphone,
+#bluetooth,
+#network,
+#mpris,
 #clock {
-  color: #fab387;
-  margin-right: 5px;
-}
-
-#network {
-  color: #f9e2af;
-  border-right: 0px;
+  min-width: 64px;
+  font-size: 14px;
+  padding: 5px 9px;
+  border: inset 4px #400070;
+  border-radius: 25px 0;
+  background-color: #16003b;
+  color: #c080f0;
+  transition: background-color 0.25s;
+  transition: border-radius 0.25s;
 }
 
 #network.disconnected {
@@ -114,19 +158,4 @@ tooltip {
   100% {
     background: #1e1e2e;
   }
-}
-
-#bluetooth {
-  color: #89b4fa;
-  border-left: 0px;
-}
-
-#pulseaudio {
-  color: #89b4fa;
-  border-right: 0px;
-}
-
-#pulseaudio.microphone {
-  color: #cba6f7;
-  border-left: 0px;
 }
