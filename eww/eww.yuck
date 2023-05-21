@@ -28,6 +28,10 @@
   "date +%Y"
 )
 
+(deflisten song
+  "~/.config/eww/scripts/getsong.sh"
+)
+
 (defwidget workspaces [n]
   (box
     :class "container"
@@ -86,6 +90,18 @@
   )
 )
 
+(defwidget player []
+  (box
+    :class "container"
+    :halign "center"
+    (button
+      :class "util-button"
+      :onclick "playerctl play-pause"
+      "${song.status == 'Playing' ? '|>' : '||'} - ${song.artist} - ${song.album} - ${song.title} ${song.position}/${song.duration}"
+    )
+  )
+)
+
 (defwidget cal []
   (box
     :class "cal-box"
@@ -128,7 +144,7 @@
     (workspaces
       :n 0
     )
-    (box)
+    (player)
     (util-bar
       :mon "left"
     )
@@ -164,7 +180,7 @@
     (workspaces
       :n 1
     )
-    (box)
+    (player)
     (util-bar
       :mon "right"
     )
