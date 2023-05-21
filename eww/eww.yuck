@@ -9,23 +9,8 @@
 )
 
 (defpoll vol
-  :interval "0.5s"
-  "pulsemixer --get-volume | awk '{ print $1 }'"
-)
-
-(defpoll vol-muted
-  :interval "0.5s"
-  "pulsemixer --get-mute"
-)
-
-(defpoll mic
-  :interval "0.5s"
-  "pulsemixer --get-volume --id $(pulsemixer --list-sources | grep Default | cut -d':' -f3 | cut -d',' -f1 | cut -d' ' -f2) | awk '{ print $1 }'"
-)
-
-(defpoll mic-muted
-  :interval "0.5s"
-  "pulsemixer --get-mute --id $(pulsemixer --list-sources | grep Default | cut -d':' -f3 | cut -d',' -f1 | cut -d' ' -f2)"
+  :interval "0.05s"
+  "~/.config/eww/scripts/getvol.sh"
 )
 
 (defpoll cal-day
@@ -83,7 +68,7 @@
         :class "util-button"
         :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         :onmiddleclick "bash ~/.config/eww/scripts/pulsemixer.sh"
-        {vol-muted == 1 ? '󰖁 MUTE' : ' ${vol}%'}
+        {vol[0].muted == 1 ? '󰖁 MUTE' : ' ${vol[0].volume}%'}
       )
     )
     (eventbox
@@ -92,7 +77,7 @@
         :class "util-button"
         :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         :onmiddleclick "bash ~/.config/eww/scripts/pulsemixer.sh"
-        {mic-muted == 1 ? ' MUTE' : ' ${mic}%'}
+        {vol[1].muted == 1 ? ' MUTE' : ' ${vol[1].volume}%'}
       )
     )
     (clock
