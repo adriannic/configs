@@ -97,7 +97,7 @@
     (button
       :class "util-button"
       :onclick "playerctl play-pause"
-      "${song.status == 'Playing' ? '||' : '|>'} - ${song.artist} - ${song.album} - ${song.title} ${song.position}/${song.duration}"
+      song
     )
   )
 )
