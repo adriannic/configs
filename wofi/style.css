@@ -1,7 +1,7 @@
 window {
   margin: 0px;
-  border: 5px solid #400070;
-  background-color: #c080f0;
+  border: 4px solid #400070;
+  background-color: #16003B;
   border-radius: 25px 0;
   font-family: FiraCode Nerd Font;
   font-weight: bold;
@@ -23,23 +23,23 @@ window {
 }
 
 #inner-box {
-  margin: 10px;
   border: none;
   color: #c080f0;
-  background-color: #16003B;
+  background-color: none;
 }
 
 #outer-box {
-  margin: 0px;
   border: 4px inset #400070;
   background-color: #16003B;
   border-radius: 25px 0;
+  padding: 0 4px;
 }
 
 #scroll {
-  margin-top: 5px;
+  margin-top: 4px;
   border: none;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  padding: 0 10px;
 }
 
 #img:selected {
@@ -58,6 +58,7 @@ window {
   margin: 4px 0px;
   border: 4px inset #400070;
   border-radius: 25px 0;
+  padding: 10px 4px;
   background-color: transparent;
   transition: background-color 0.25s;
   transition: border-radius 0.25s;
