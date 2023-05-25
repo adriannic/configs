@@ -137,7 +137,7 @@
     :height "5%"
     :anchor "bottom center"
   )
-  :stacking "top"
+  :stacking "fg"
   :exclusive true
   :focusable false
   (centerbox
@@ -173,7 +173,7 @@
     :height "5%"
     :anchor "bottom center"
   )
-  :stacking "top"
+  :stacking "fg"
   :exclusive true
   :focusable false
   (centerbox
@@ -195,7 +195,7 @@
     :width "121px"
     :height "88px"
   )
-  :stacking "bottom"
+  :stacking "bg"
   :exclusive false
   :focusable false
   (box
