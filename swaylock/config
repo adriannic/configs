@@ -1,7 +1,17 @@
 daemonize
+screenshot
+effect-blur=32x8
+effect-vignette=0.5:0.5
+indicator
 show-failed-attempts
 ignore-empty-password
 indicator-caps-lock
 indicator-radius=100
-font=Fira Code
-image=~/Imágenes/Fondos/fondo5.jpg
+font=FiraCode Nerd Font
+clock
+line-color=400070
+ring-color=400070
+inside-color=16003b
+text-color=c080f0
+key-hl-color=c080f0
+separator-color=c080f0
