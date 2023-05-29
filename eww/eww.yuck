@@ -1,6 +1,6 @@
 (defpoll active-workspace
   :interval "0.1s"
-  "export focused=$(hyprctl activeworkspace | grep ID | cut -d' ' -f3); echo -n $focused; unset -v focused"
+  "export focused=$(hyprctl activeworkspace | grep 'workspace ID' | cut -d' ' -f3); echo -n $focused; unset -v focused"
 )
 
 (defpoll time
