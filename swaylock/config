@@ -9,9 +9,9 @@ indicator-caps-lock
 indicator-radius=100
 font=FiraCode Nerd Font
 clock
-line-color=400070
-ring-color=400070
-inside-color=16003b
-text-color=c080f0
-key-hl-color=c080f0
-separator-color=c080f0
+line-color=313244
+ring-color=313244
+inside-color=181b28
+text-color=8080c0
+key-hl-color=8080c0
+separator-color=8080c0
