@@ -52,10 +52,10 @@
 (defwidget clock [mon]
   (eventbox
     :class "clock"
-    :onhover "eww open cal-window-${mon}"
-    :onhoverlost "eww close cal-window-${mon}"
+    :onclick "eww open --toggle cal-window-${mon}"
     (button
       :class "util-button"
+      :onclick "eww open --toggle cal-window-${mon}"
       time
     )
   )
@@ -110,7 +110,6 @@
       :month cal-month
       :year cal-year
       :show-week-numbers true
-      :active false
     )
   )
 )
