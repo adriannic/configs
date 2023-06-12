@@ -62,8 +62,7 @@ window {
 
 #entry {
   margin: 4px 0px;
-  border: 4px inset #313244;
-  border-radius: 25px 0;
+  /* border: 4px inset #313244; */
   padding: 8px 4px;
   background-color: transparent;
   transition: background-color 0.25s;
@@ -72,8 +71,6 @@ window {
 
 #entry:selected {
   margin: 4px 0px;
-  border: 4px inset #313244;
-  border-radius: 0;
   color: #181b28;
   background-color: #88c;
   transition: background-color 0.25s;

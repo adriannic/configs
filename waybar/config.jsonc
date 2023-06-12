@@ -4,20 +4,11 @@
   "exclusive": true,
   "passthrough": false,
   "gtk-layer-shell": true,
+  "width": 50,
   "height": 56,
-  "modules-left": [
-    "wlr/workspaces"
-  ],
-  "modules-center": [
-  ],
-  "modules-right": [
-    "tray",
-    "network",
-    "bluetooth",
-    "pulseaudio",
-    "pulseaudio#microphone",
-    "clock"
-  ],
+  "modules-left": [],
+  "modules-center": ["tray"],
+  "modules-right": [],
   "hyprland/window": {
     "format": "{}"
   },
@@ -91,11 +82,7 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
+      "default": ["", "", ""]
     }
   },
   "pulseaudio#microphone": {

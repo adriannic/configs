@@ -1,3 +1,8 @@
+/* $text: #88c; */
+/* $bg: #181B28; */
+/* $text-selected: #181b28; */
+/* $bg-selected: #88c; */
+/* $border: #313244; */
 * {
   all: unset;
   font-family: "FiraCode Nerd Font";
@@ -11,23 +16,22 @@ window#waybar {
 #tray menu,
 tooltip {
   font-size: 14px;
-  background: #16003b;
-  border: inset 4px #400070;
-  color: #c080f0;
+  background: #181b28;
+  border: inset 4px #313244;
+  color: #88c;
   border-radius: 15px 0;
   padding: 10px;
 }
 
 #tray menu > separator {
-  background-color: #400070;
+  background-color: #313244;
   margin: 4px 0;
   padding: 1px 5px;
 }
 
 #tray menu > menuitem {
-  background-color: #16003b;
-  color: #c080f0;
-  border: inset 4px #400070;
+  background-color: #181b28;
+  color: #88c;
   border-radius: 15px 0;
   padding: 4px;
   margin: 2px 0;
@@ -37,8 +41,8 @@ tooltip {
 }
 
 #tray menu > menuitem:hover {
-  background-color: #c080f0;
-  color: #16003b;
+  background-color: #88c;
+  color: #181b28;
   border-radius: 0;
   transition: background-color 0.25s;
   transition: border-radius 0.25s;
@@ -51,111 +55,26 @@ tooltip {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    color: #16003b;
-    background-color: #c080f0;
+    color: #181b28;
+    background-color: #88c;
 }
 
-#workspaces button {
-  margin: 0px 4px;
-  padding: 5px;
-  padding-left: 14px;
-  padding-right: 18px;
-  color: #c080f0;
-  background-color: #16003b;
-  font-size: 16px;
-  border: inset 4px #400070;
-  border-radius: 25px 0;
-  transition: background-color 0.25s;
-  transition: border-radius 0.25s;
-  transition: color 0.25s;
-}
-
-#workspaces button.active {
-  color: #fff;
-  transition: color 0.25s;
-}
-
-#workspaces button.focused {
-  color: #a6adc8;
-  background: #eba0ac;
-}
-
-#workspaces button.urgent {
-  animation: urgent 2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-play-state: running;
-}
-
-@keyframes urgent {
-  0% {
-    color: #c080f0;
-  }
-  50% {
-    color: #f6e3a1;
-  }
-  100% {
-    color: #c080f0;
-  }
-}
-
-#workspaces button:hover {
-  color: #400070;
-  background-color: #c080f0;
-  border-radius: 0px;
-  transition: background-color 0.25s;
-  transition: border-radius 0.25s;
-}
-
-#window,
-#clock,
-#pulseaudio,
-#network,
-#bluetooth,
-#workspaces,
-#mpris,
 #tray {
-  margin: 0px 4px 4px 0px;
-}
-
-#workspaces {
-  margin-left: 5px;
-}
-
-#tray,
-#pulseaudio,
-#pulseaudio.microphone,
-#bluetooth,
-#network,
-#mpris,
-#clock {
-  min-width: 64px;
+  margin: 0px 0px 5px 0px;
   font-size: 14px;
-  padding: 5px 9px;
-  border: inset 4px #400070;
+  padding: 0 12px;
+  border: inset 4px #313244;
   border-radius: 25px 0;
-  background-color: #16003b;
-  color: #c080f0;
+  background-color: #181b28;
+  color: #88c;
   transition: background-color 0.25s;
   transition: border-radius 0.25s;
 }
 
-#network.disconnected {
-  color: #fff;
-  animation: disconnected 2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-play-state: running;
-}
-
-@keyframes disconnected {
-  0% {
-    background: #1e1e2e;
-  }
-  50% {
-    background: #d53333;
-  }
-  100% {
-    background: #1e1e2e;
-  }
+#tray button:hover {
+  background-color: #88c;
+  color: #181b28;
+  border-radius: 0px;
+  transition: background-color 2.0s;
+  transition: border-radius 0.25s;
 }
