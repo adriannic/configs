@@ -13,6 +13,7 @@ application/x-wine-extension-asta=wine-Programs-Astah Community-Astah Community.
 audio/x-opus+ogg=vlc.desktop;
 application/x-shellscript=kitty-open.desktop;
 application/xml=nvim.desktop;
+text/html=nvim.desktop;
 
 [Default Applications]
 x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_usr_lib_eclipse_.desktop
