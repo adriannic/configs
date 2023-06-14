@@ -1,6 +1,6 @@
 (defpoll active-workspace
   :interval "0.1s"
-  "export focused=$(hyprctl activeworkspace | grep 'workspace ID' | cut -d' ' -f3); echo -n $focused; unset -v focused"
+  "hyprctl monitors -j | jq 'map({id, active:.activeWorkspace.id})'"
 )
 
 (defpoll time
@@ -38,14 +38,14 @@
     :space-evenly true
     :halign "start"
     :spacing 0
-    (button :class "w${n}${active-workspace == '1' ? '1' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 1" " ")
-    (button :class "w${n}${active-workspace == '2' ? '2' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 2" " ")
-    (button :class "w${n}${active-workspace == '3' ? '3' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 3" " ")
-    (button :class "w${n}${active-workspace == '4' ? '4' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 4" "󰈹 ")
-    (button :class "w${n}${active-workspace == '5' ? '5' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 5" " ")
-    (button :class "w${n}${active-workspace == '6' ? '6' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 6" "󰙯 ")
-    (button :class "w${n}${active-workspace == '7' ? '7' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 7" " ")
-    (button :class "w${n}${active-workspace == '8' ? '8' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 8" " ")
+    (button :class "w${n}${active-workspace[n].active == '1' ? '1' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 1" " ")
+    (button :class "w${n}${active-workspace[n].active == '2' ? '2' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 2" " ")
+    (button :class "w${n}${active-workspace[n].active == '3' ? '3' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 3" " ")
+    (button :class "w${n}${active-workspace[n].active == '4' ? '4' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 4" "󰈹 ")
+    (button :class "w${n}${active-workspace[n].active == '5' ? '5' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 5" " ")
+    (button :class "w${n}${active-workspace[n].active == '6' ? '6' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 6" "󰙯 ")
+    (button :class "w${n}${active-workspace[n].active == '7' ? '7' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 7" " ")
+    (button :class "w${n}${active-workspace[n].active == '8' ? '8' : ''}" :onclick "~/.config/hypr/scripts/workspaces.sh 8" " ")
   )
 )
 
