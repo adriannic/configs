@@ -1,3 +1,7 @@
+(defvar battery-icons
+  '{"Charging":"󰂄","Discharging":["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"]}'
+)
+
 (defpoll active-workspace
   :interval "0.1s"
   "hyprctl monitors -j | jq 'map({id, active:.activeWorkspace.id})'"
@@ -11,6 +15,21 @@
 (defpoll vol
   :interval "0.05s"
   "~/.config/eww/scripts/getvol.sh"
+)
+
+(defpoll brightness
+  :interval "0.05s"
+  "brightnessctl -m | cut -d',' -f4 | cut -d'%' -f1"
+)
+
+(defpoll battery
+  :interval "1s"
+  "cat /sys/class/power_supply/BAT0/capacity"
+)
+
+(defpoll battery-state
+  :interval "1s"
+  "cat /sys/class/power_supply/BAT0/status"
 )
 
 (defpoll cal-day
@@ -66,6 +85,19 @@
     :class "container"
     :halign "end"
     :spacing 4
+    (button
+      :class "util-button"
+      '${(battery-state == "Charging") ? battery-icons[battery-state] : battery-icons["Discharging"][(battery - battery%10)/10]} ${battery}%'
+    )
+    (eventbox
+      :onscroll "brightnessctl set 5%$(if [[ {} = 'down' ]]; then echo - -; else echo '+'; fi)"
+      (button
+        :class "util-button"
+        :onclick ""
+        :onmiddleclick ""
+        "󰃟 ${brightness}%"
+      )
+    )
     (eventbox
       :onscroll "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%$(if [[ {} = 'down' ]]; then echo - -; else echo '+'; fi)"
       (button
