@@ -5,11 +5,18 @@
 // $bg: #16003B;
 
 // Gray
-$text: #88c;
-$bg: #181B28;
-$text-selected: #181b28;
-$bg-selected: #88c;
-$border: #313244;
+// $text: #88c;
+// $bg: #181B28;
+// $text-selected: #181b28;
+// $bg-selected: #88c;
+// $border: #313244;
+
+// New Gray
+$text: #88f;
+$bg: #112;
+$text-selected: #112;
+$bg-selected: #88f;
+$border: #335;
 
 $font-size: 18px;
 
@@ -73,7 +80,7 @@ $font-size: 18px;
   border: inset 4px $border;
   border-radius: 25px;
   color: $text;
-  background-color: $bg
+  background-color: $bg;
 }
 
 .notification-box {

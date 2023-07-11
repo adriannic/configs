@@ -1,14 +1,14 @@
-/* $text: #88c; */
-/* $bg: #181B28; */
-/* $text-selected: #181b28; */
-/* $bg-selected: #88c; */
-/* $border: #313244; */
+/* $text: #88f; */
+/* $bg: #112; */
+/* $text-selected: #112; */
+/* $bg-selected: #88f; */
+/* $border: #335; */
 
 window {
   margin: 0px;
-  /* border: 4px solid #313244; */
+  /* border: 4px solid #335; */
   background: transparent;
-  /* background-color: #181b28; */
+  /* background-color: #112; */
   border-radius: 25px;
   font-family: FiraCode Nerd Font;
   font-weight: bold;
@@ -18,10 +18,10 @@ window {
 #input {
   padding: 10px;
   border: inset 4px;
-  border-color: #313244;
+  border-color: #335;
   border-radius: 25px;
-  color: #88c;
-  background-color: #181b28;
+  color: #88f;
+  background-color: #112;
   outline: none;
   margin: 10px;
   margin-bottom: 2px;
@@ -29,13 +29,13 @@ window {
 
 #inner-box {
   border: none;
-  color: #88c;
+  color: #88f;
   background-color: transparent;
 }
 
 #outer-box {
-  /* border: 4px inset #313244; */
-  /* background-color: #181b28; */
+  /* border: 4px inset #335; */
+  /* background-color: #112; */
   background: transparent;
   border-radius: 25px 0;
 }
@@ -54,27 +54,27 @@ window {
   border: none;
   font-weight: bold;
   background-color: transparent;
-  color: #88c;
+  color: #88f;
 }
 
 #text:selected {
-  color: #181b28;
+  color: #112;
 }
 
 #entry {
   margin: 4px 0px;
-  border: 4px inset #313244;
+  border: 4px inset #335;
   border-radius: 25px;
   padding: 10px;
-  background-color: #181b28;
+  background-color: #112;
   transition: background-color 0.25s;
   transition: border-radius 0.25s;
 }
 
 #entry:selected {
   margin: 4px 0px;
-  color: #181b28;
-  background-color: #88c;
+  color: #112;
+  background-color: #88f;
   transition: background-color 0.25s;
   transition: border-radius 0.25s;
 }

@@ -230,6 +230,8 @@
         )
         (box
           :width "100%"
+          :class "container"
+          :halign "center"
         )
         (util-bar
           :n 0
