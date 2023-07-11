@@ -19,7 +19,7 @@ tooltip {
   background: #181b28;
   border: inset 4px #313244;
   color: #88c;
-  border-radius: 15px 0;
+  border-radius: 25px;
   padding: 10px;
 }
 
@@ -32,20 +32,17 @@ tooltip {
 #tray menu > menuitem {
   background-color: #181b28;
   color: #88c;
-  border-radius: 15px 0;
+  border-radius: 25px;
   padding: 4px;
   margin: 2px 0;
   transition: background-color 0.25s;
-  transition: border-radius 0.25s;
   transition: color 0.25s;
 }
 
 #tray menu > menuitem:hover {
   background-color: #88c;
   color: #181b28;
-  border-radius: 0;
   transition: background-color 0.25s;
-  transition: border-radius 0.25s;
   transition: color 0.25s;
 }
 
@@ -64,17 +61,9 @@ tooltip {
   font-size: 14px;
   padding: 0 12px;
   border: inset 4px #313244;
-  border-radius: 25px 0;
+  border-radius: 25px;
   background-color: #181b28;
   color: #88c;
   transition: background-color 0.25s;
-  transition: border-radius 0.25s;
-}
-
-#tray button:hover {
-  background-color: #88c;
-  color: #181b28;
-  border-radius: 0px;
-  transition: background-color 2.0s;
   transition: border-radius 0.25s;
 }

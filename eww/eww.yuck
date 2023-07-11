@@ -1,5 +1,17 @@
+(defvar is-bar-visible
+  "true"
+)
+
+(defvar is-notifications-visible-0
+  "false"
+)
+
 (defvar battery-icons
   '{"Charging":"󰂄","Discharging":["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"]}'
+)
+
+(defvar net-icons
+  '{"none":"󱛇","portal":"󱚵","limited":"󱚵","full":"󰖩","unknown":"󰖪"}'
 )
 
 (defpoll active-workspace
@@ -17,6 +29,11 @@
   "~/.config/eww/scripts/getvol.sh"
 )
 
+(defpoll bluetooth
+  :interval "0.1s"
+  "bluetooth | cut -d' ' -f3"
+)
+
 (defpoll brightness
   :interval "0.05s"
   "brightnessctl -m | cut -d',' -f4 | cut -d'%' -f1"
@@ -30,6 +47,16 @@
 (defpoll battery-state
   :interval "1s"
   "cat /sys/class/power_supply/BAT0/status"
+)
+
+(defpoll net-enabled
+  :interval "1s"
+  "LC_ALL=C nmcli networking"
+)
+
+(defpoll net-state
+  :interval "1s"
+  "LC_ALL=C nmcli networking connectivity"
 )
 
 (defpoll cal-day
@@ -50,6 +77,11 @@
 (deflisten song
   "~/.config/eww/scripts/getsong.sh"
 )
+(defpoll notifications
+  :interval "0.25s"
+  "dunstctl history | jq"
+)
+
 
 (defwidget workspaces [n]
   (box
@@ -68,19 +100,19 @@
   )
 )
 
-(defwidget clock [mon]
+(defwidget clock [n]
   (eventbox
     :class "clock"
-    :onclick "eww open --toggle cal-window-${mon}"
+    :onclick "eww open --toggle cal-window-${n}"
     (button
       :class "util-button"
-      :onclick "eww open --toggle cal-window-${mon}"
+      :onclick "eww open --toggle cal-window-${n}"
       time
     )
   )
 )
 
-(defwidget util-bar [mon]
+(defwidget util-bar [n]
   (box
     :class "container"
     :halign "end"
@@ -97,6 +129,18 @@
         :onmiddleclick ""
         "󰃟 ${brightness}%"
       )
+    )
+    (button
+      :class "util-button"
+      :onclick "nmcli networking ${net-enabled == 'enabled' ? 'off' : 'on'}"
+      :onmiddleclick "bash ~/.config/eww/scripts/nmtui.sh"
+      "${net-enabled == 'enabled' ? net-icons[net-state] : '󰖪'} ${net-state}"
+    )
+    (button
+      :class "util-button"
+      :onclick "bluetooth toggle"
+      :onmiddleclick "blueberry"
+      {bluetooth == "on" ? "󰂯 on" : "󰂲 off"}
     )
     (eventbox
       :onscroll "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%$(if [[ {} = 'down' ]]; then echo - -; else echo '+'; fi)"
@@ -117,19 +161,7 @@
       )
     )
     (clock
-      :mon mon
-    )
-  )
-)
-
-(defwidget player []
-  (box
-    :class "container"
-    :halign "center"
-    (button
-      :class "util-button"
-      :onclick "playerctl play-pause"
-      song
+      :n n
     )
   )
 )
@@ -146,43 +178,20 @@
   )
 )
 
-(defwindow cal-window-left
+(defwindow cal-window-0
   :monitor 0
   :geometry (geometry
-    :x "85%"
-    :y "76%"
     :width "15%"
     :height "19%"
+    :anchor "bottom right"
   )
   :stacking "overlay"
   :focusable false
+  :namespace "eww"
   (cal)
 )
 
-;; (defwindow bar-left
-;;   :monitor 0
-;;   :geometry (geometry
-;;     :x "0px"
-;;     :y "0px"
-;;     :width "100%"
-;;     :height "5%"
-;;     :anchor "bottom center"
-;;   )
-;;   :stacking "fg"
-;;   :exclusive true
-;;   :focusable false
-;;   (centerbox
-;;     (workspaces
-;;       :n 0
-;;     )
-;;     (player)
-;;     (util-bar
-;;       :mon "left"
-;;     )
-;;   )
-;; )
-
-(defwindow cal-window-right
+(defwindow cal-window-1
   :monitor 1
   :geometry (geometry
     :x "85%"
@@ -192,113 +201,98 @@
   )
   :stacking "overlay"
   :focusable false
+  :namespace "eww"
   (cal)
 )
 
-;; (defwindow bar-right
-;;   :monitor 1
-;;   :geometry (geometry
-;;     :x "0px"
-;;     :y "0px"
-;;     :width "100%"
-;;     :height "5%"
-;;     :anchor "bottom center"
-;;   )
-;;   :stacking "fg"
-;;   :exclusive true
-;;   :focusable false
-;;   (centerbox
-;;     (workspaces
-;;       :n 1
-;;     )
-;;     (player)
-;;     (util-bar
-;;       :mon "right"
-;;     )
-;;   )
-;; )
-
-(defwindow utils-left
+(defwindow bar-0
   :monitor 0
   :geometry (geometry
-    :x "0px"
-    :y "-56px"
-    :height "56"
-    :anchor "bottom right"
+    :width "100%"
+    :anchor "bottom center"
   )
   :stacking "fg"
   :exclusive true
   :focusable false
-  (util-bar
-    :mon "left"
+  :namespace "eww"
+  (box
+    :orientation "v"
+    :space-evenly false
+    (revealer
+      :transition "slideup"
+      :reveal is-bar-visible
+      :duration "250ms"
+      (centerbox
+        :height 56
+        :orientation "h"
+        (workspaces
+          :n 0
+        )
+        (box
+          :width "100%"
+        )
+        (util-bar
+          :n 0
+        )
+      )
+    )
   )
 )
 
-(defwindow utils-right
-  :monitor 1
-  :geometry (geometry
-    :x "0px"
-    :y "-56px"
-    :height "56"
-    :anchor "bottom right"
-  )
-  :stacking "fg"
-  :exclusive true
-  :focusable false
-  (util-bar
-    :mon "right"
+(defwidget notifications []
+  (box
+    :class "notification-box"
+    :orientation "v"
+    :space-evenly false
+    :spacing 4
+    (label
+      :class "title"
+      :text "󰂚 Notificaciones"
+    )
+    (for not in {notifications.data[0]}
+      (box
+        :class "notification"
+        :orientation "h"
+        (label
+          :xalign 0
+          :limit-width 20
+          :wrap true
+          :markup {not.message.data}
+        )
+        (label
+          :xalign 1
+          :text "${not.appname.data}"
+        )
+      )
+    )
   )
 )
 
-(defwindow workspace-left
+(defwindow notifications-0
   :monitor 0
   :geometry (geometry
-    :x "0px"
-    :y "-56px"
-    :height "56"
-    :anchor "bottom left"
+    :width "30%"
+    :anchor "top center"
   )
-  :stacking "fg"
-  :exclusive true
-  :focusable false
-  (workspaces
-    :n 0
-  )
-)
-
-(defwindow workspace-right
-  :monitor 1
-  :geometry (geometry
-    :x "0px"
-    :y "-56px"
-    :height "56"
-    :anchor "bottom left"
-  )
-  :stacking "fg"
-  :exclusive true
-  :focusable false
-  (workspaces
-    :n 1
-  )
-)
-
-(defwindow emulation-station
-  :monitor 0
-  :geometry (geometry
-    :x "1468px"
-    :y "268px"
-    :width "121px"
-    :height "88px"
-  )
-  :stacking "bg"
+  :stacking "overlay"
   :exclusive false
   :focusable false
-  (box
-    :class "frame-container"
-    (button
-      :class "frame"
-      :onclick "emulationstation &"
-      "EMU"
+  :namespace "eww"
+  (eventbox
+    :onhover "eww update is-notifications-visible-0=true"
+    :onhoverlost "eww update is-notifications-visible-0=false"
+    (box
+      :orientation "v"
+      :space-evenly false
+      (revealer
+        :transition "slidedown"
+        :reveal is-notifications-visible-0
+        :duration "250ms"
+        (notifications)
+      )
+      (box
+        :height 1
+      )
     )
   )
 )
